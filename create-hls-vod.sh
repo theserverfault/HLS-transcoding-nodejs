@@ -15,14 +15,17 @@ renditions=(
   "1920x1080  5000k    192k"
 )
 
-segment_target_duration=4       # try to create a new segment every X seconds
+segment_target_duration=10       # try to create a new segment every X seconds
 max_bitrate_ratio=1.07          # maximum accepted bitrate fluctuations
 rate_monitor_buffer_ratio=1.5   # maximum buffer size between bitrate conformance checks
 
 #########################################################################
 
-source="${1}"
-target="${2}"
+# second argument in extension
+# first argument is video id
+source="uploads/${1}/${1}.${2}"
+s3URL="${3}"
+target="uploads/${1}"
 if [[ ! "${target}" ]]; then
   target="${source##*/}" # leave only last component of path
   target="${target%.*}"  # strip extension
@@ -62,14 +65,16 @@ for rendition in "${renditions[@]}"; do
   maxrate="$(echo "`echo ${bitrate} | grep -oE '[[:digit:]]+'`*${max_bitrate_ratio}" | bc)"
   bufsize="$(echo "`echo ${bitrate} | grep -oE '[[:digit:]]+'`*${rate_monitor_buffer_ratio}" | bc)"
   bandwidth="$(echo ${bitrate} | grep -oE '[[:digit:]]+')000"
+  # name must be somehow prefixed with the s3 URL
   name="${height}p"
+  endpoint="${s3URL}/${1}/${name}.m3u8"
   
   cmd+=" ${static_params} -vf scale=w=${width}:h=${height}:force_original_aspect_ratio=decrease"
   cmd+=" -b:v ${bitrate} -maxrate ${maxrate%.*}k -bufsize ${bufsize%.*}k -b:a ${audiorate}"
   cmd+=" -hls_segment_filename ${target}/${name}_%03d.ts ${target}/${name}.m3u8"
   
   # add rendition entry in the master playlist
-  master_playlist+="#EXT-X-STREAM-INF:BANDWIDTH=${bandwidth},RESOLUTION=${resolution}\n${name}.m3u8\n"
+  master_playlist+="#EXT-X-STREAM-INF:BANDWIDTH=${bandwidth},RESOLUTION=${resolution}\n${endpoint}\n"
 done
 
 # start conversion
@@ -80,3 +85,5 @@ ffmpeg ${misc_params} -i ${source} ${cmd}
 echo -e "${master_playlist}" > ${target}/playlist.m3u8
 
 echo "Done - encoded HLS is at ${target}/"
+
+./curl_transcoding_finished.sh ${1}
