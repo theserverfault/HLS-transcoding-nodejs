@@ -1,5 +1,7 @@
 export const {
 	SECRET_STRING = 'r@nDOmSeCr3tStr!nG',
+	S3_BUCKET,
+	S3_URL,
 } = process.env;
 
 export const APP_VERSION = 1.0;
