@@ -1,0 +1,19 @@
+{
+	"extends": "airbnb",
+	"env": {
+		"es6": true,
+		"node": true
+	},
+	"parser": "babel-eslint",
+	"rules": {
+		"indent": [
+			2,
+			"tab",
+			{
+				"SwitchCase": 1,
+				"VariableDeclarator": 1
+			}
+		],
+		"no-tabs": 0
+	}
+}

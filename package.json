@@ -1,0 +1,66 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "The backend code for {{app_name}}",
+  "main": "server.js",
+  "scripts": {
+    "preinstall": "npm update",
+    "postinstall": "npm prune",
+    "test": "mocha -t 20000 --compilers js:@babel/register tests --exit",
+    "deploy": "npm i && npm start",
+    "server": "node server/loader.js",
+    "server:dev": "./node_modules/.bin/nodemon server/loader.js",
+    "babel-build": "./node_modules/.bin/babel -d ./babel_build ./server -s"
+  },
+  "dependencies": {
+    "appknit-backend-bundle": "^1.0.64",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "body-parser": "^1.18.2",
+    "busboy-body-parser": "^0.3.1",
+    "connect-flash": "^0.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.5",
+    "express-session": "^1.15.6",
+    "ffprobe": "^1.1.0",
+    "ffprobe-static": "^3.0.0",
+    "mime-types": "^2.1.26",
+    "mongodb": "^3.2.3",
+    "mongoose": "^5.5.2",
+    "morgan": "^1.9.0",
+    "pm2": "^2.8.0",
+    "uuid": "^7.0.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/plugin-proposal-decorators": "^7.2.0",
+    "@babel/plugin-syntax-async-generators": "^7.2.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/register": "^7.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "chai": "^4.1.2",
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/App-Knit/{{app_name}}.git"
+  },
+  "author": "gaurav sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/App-Knit/{{app_name}}.git/issues"
+  },
+  "homepage": "https://github.com/App-Knit/{{app_name}}.git#readme"
+}

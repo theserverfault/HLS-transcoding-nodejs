@@ -1,0 +1,7 @@
+node_modules
+*.log
+.vscode
+ssh
+*.zip
+.env
+uploads/*
