@@ -1,4 +1,4 @@
-# HLS m3u8 streaming in NodeJS
+# HLS m3u8 streaming in NodeJS with ffmpeg and S3 Hosting
 HLS stands for HTTP Live Streaming. It is an HTTP-based adaptive bitrate streaming communications protocol developed by Apple. It allows content to be delivered over HTTP-based CDNs using extended M3U playlists.
 To learn more about HLS, consider visting [Wikipedia](https://en.wikipedia.org/wiki/HTTP_Live_Streaming).
 
