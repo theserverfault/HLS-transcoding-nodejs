@@ -15,7 +15,7 @@ renditions=(
   "1920x1080  5000k    192k"
 )
 
-segment_target_duration=10       # try to create a new segment every X seconds
+segment_target_duration=4       # try to create a new segment every X seconds
 max_bitrate_ratio=1.07          # maximum accepted bitrate fluctuations
 rate_monitor_buffer_ratio=1.5   # maximum buffer size between bitrate conformance checks
 
@@ -69,7 +69,8 @@ for rendition in "${renditions[@]}"; do
   name="${height}p"
   endpoint="${s3URL}/${1}/${name}.m3u8"
   
-  cmd+=" ${static_params} -vf scale=w=${width}:h=${height}:force_original_aspect_ratio=decrease"
+  # cmd+=" ${static_params} -vf scale=w=${width}:h=${height}:force_original_aspect_ratio=decrease"
+  cmd+=" ${static_params} -vf scale=w=${width}:h=${height}"
   cmd+=" -b:v ${bitrate} -maxrate ${maxrate%.*}k -bufsize ${bufsize%.*}k -b:a ${audiorate}"
   cmd+=" -hls_segment_filename ${target}/${name}_%03d.ts ${target}/${name}.m3u8"
   
