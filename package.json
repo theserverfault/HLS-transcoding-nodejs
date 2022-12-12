@@ -22,7 +22,7 @@
     "connect-flash": "^0.1.1",
     "cors": "^2.8.5",
     "dotenv": "^4.0.0",
-    "express": "^4.15.5",
+    "express": "^4.17.3",
     "express-session": "^1.15.6",
     "ffprobe": "^1.1.0",
     "ffprobe-static": "^3.0.0",
